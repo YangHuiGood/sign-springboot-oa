@@ -6,4 +6,16 @@
 		select * from t_user where
 		user_name=#{userName} and user_password=#{userPassword}
 	</select>
+
+	<update id="updateUserImg">
+		update t_user set
+		img_token=#{imgToken},
+		user_email=#{userEmail},
+		user_phone=#{userPhone}
+		where user_id=#{userId}
+	</update>
+	
+	<select id="getTokens" resultType="string">
+		select img_token from t_user 
+	</select>
 </mapper>
