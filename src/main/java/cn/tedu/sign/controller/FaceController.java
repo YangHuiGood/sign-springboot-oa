@@ -93,9 +93,10 @@ public class FaceController {
 	 */
 	@RequestMapping("/book")
 	public int book(@RequestBody String info) throws Exception {
-		List<String> tokens = userMapper.getTokens();
+		
 		String image = info.split(",")[0];
 		String userId = info.split(",")[1];
+		List<String> tokens = userMapper.getToken(userId);
 		if (faceUtil.isEmp(tokens, image)) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String checkTime = format.format(new Date());
