@@ -20,7 +20,7 @@
 	</select>
 	
 	<select id="getData" resultType="string">
-		select check_time from t_check_in where user_id=#{userId} order by check_time desc
+		select check_time from t_check_in where user_id=#{userId} order by check_time desc limit 0,10
 	</select>
 	
 	
