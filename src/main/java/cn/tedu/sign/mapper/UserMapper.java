@@ -14,4 +14,6 @@ public interface UserMapper {
 
 	List<String> getTokens();
 
+	List<String> getData(String userId);
+
 }

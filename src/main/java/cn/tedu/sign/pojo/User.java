@@ -8,6 +8,7 @@ public class User {
 	private String userEmail;
 	private String userPhone;
 	private Integer roleId;
+	private String fatherId;//父级id
 	public String getUserId() {
 		return userId;
 	}
@@ -49,6 +50,12 @@ public class User {
 	}
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
+	}
+	public String getFatherId() {
+		return fatherId;
+	}
+	public void setFatherId(String fatherId) {
+		this.fatherId = fatherId;
 	}
 	
 	

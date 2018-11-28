@@ -31,12 +31,14 @@ public class FaceServiceUtil {
 	 */
 	public boolean isEmp(List<String> tokens, String image) throws Exception {
 		String token = getFaceToken(image);
+		if(token==null) return false;
 		token=token.substring(1, token.length()-1);
 		MatchRequest m1 = new MatchRequest(token, "FACE_TOKEN");
 		for (int i = 0; i < tokens.size(); i++) {
 			MatchRequest m2 = new MatchRequest(tokens.get(i), "FACE_TOKEN");
 			Thread.sleep(300);
 			String score = getScore(m1, m2);
+			if(score==null||score=="null") return false;
 			int score2 = (int) Double.parseDouble(score);
 			if (score2 > 80) {
 				return true;
@@ -45,6 +47,7 @@ public class FaceServiceUtil {
 		return false;
 
 	}
+	
 
 	/**
 	 * 获取图片唯一token
@@ -61,7 +64,18 @@ public class FaceServiceUtil {
 		JsonNode node = ObjectUtil.mapper.readTree(detect.get("result").toString());
 		String result = node.get("face_list").toString();
 		JsonNode node2 = ObjectUtil.mapper.readTree(result.substring(1, result.length()));
+		if(node2==null) return null;
 		String token = String.valueOf(node2.get("face_token"));
+		return token;
+	}
+	/**
+	 * 人脸注册
+	 */
+	public String getFaceTokenAR(String image,String userName) throws Exception {
+		JSONObject detect = client.addUser(image, "BASE64", "TestGroup", userName, new HashMap<String, String>());
+		JsonNode node = ObjectUtil.mapper.readTree(detect.get("result").toString());
+		if(node==null) return null;
+		String token = String.valueOf(node.get("face_token"));
 		return token;
 	}
 
