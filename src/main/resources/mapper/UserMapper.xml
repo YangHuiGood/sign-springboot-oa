@@ -6,4 +6,22 @@
 		select * from t_user where
 		user_name=#{userName} and user_password=#{userPassword}
 	</select>
+
+	<update id="updateUserImg">
+		update t_user set
+		img_token=#{imgToken},
+		user_email=#{userEmail},
+		user_phone=#{userPhone}
+		where user_id=#{userId}
+	</update>
+	
+	<select id="getToken" resultType="string">
+		select img_token from t_user where user_id=#{userId}
+	</select>
+	
+	<select id="getData" resultType="string">
+		select check_time from t_check_in where user_id=#{userId} order by check_time desc limit 0,10
+	</select>
+	
+	
 </mapper>

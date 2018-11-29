@@ -19,11 +19,9 @@ public class UserController {
 
 	/**
 	 * 登录
-	 * 
 	 * @throws JsonProcessingException
 	 */
 	@RequestMapping("/login")
-	// http://localhost:8089/sign/login?userName=admin&userPassword=1
 	public String login(String userName, String userPassword) throws Exception {
 		User user = userMapper.getUserByUP(userName, userPassword);
 		return ObjectUtil.mapper.writeValueAsString(user);
