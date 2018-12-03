@@ -29,20 +29,17 @@ public class FaceServiceUtil {
 	 * @param image
 	 * @throws Exception
 	 */
-	public boolean isEmp(List<String> tokens, String image) throws Exception {
+	public boolean isEmp(String token1, String image) throws Exception {
 		String token = getFaceToken(image);
 		if(token==null) return false;
 		token=token.substring(1, token.length()-1);
 		MatchRequest m1 = new MatchRequest(token, "FACE_TOKEN");
-		for (int i = 0; i < tokens.size(); i++) {
-			MatchRequest m2 = new MatchRequest(tokens.get(i), "FACE_TOKEN");
-			Thread.sleep(300);
-			String score = getScore(m1, m2);
-			if(score==null||score=="null") return false;
-			int score2 = (int) Double.parseDouble(score);
-			if (score2 > 80) {
-				return true;
-			}
+		MatchRequest m2 = new MatchRequest(token1, "FACE_TOKEN");
+		String score = getScore(m1, m2);
+		if(score==null||score=="null") return false;
+		int score2 = (int) Double.parseDouble(score);
+		if (score2 > 80) {
+			return true;
 		}
 		return false;
 
@@ -71,8 +68,8 @@ public class FaceServiceUtil {
 	/**
 	 * 人脸注册
 	 */
-	public String getFaceTokenAR(String image,String userName) throws Exception {
-		JSONObject detect = client.addUser(image, "BASE64", "TestGroup", userName, new HashMap<String, String>());
+	public String getFaceTokenAR(String image,String userId) throws Exception {
+		JSONObject detect = client.addUser(image, "BASE64", "TestGroup", userId, new HashMap<String, String>());
 		JsonNode node = ObjectUtil.mapper.readTree(detect.get("result").toString());
 		if(node==null) return null;
 		String token = String.valueOf(node.get("face_token"));

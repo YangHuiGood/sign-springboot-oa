@@ -12,7 +12,7 @@ public interface UserMapper {
 
 	int updateUserImg(User user);
 
-	List<String> getToken(String userId);
+	String getToken(String userId);
 
 	List<String> getData(String userId);
 

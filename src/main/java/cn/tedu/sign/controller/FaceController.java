@@ -56,10 +56,10 @@ public class FaceController {
 		// 制作回传图片
 		String path = info[2];
 		String img = info[1];
-		String userName=info[3];
+		String userId=info[3];
 		Boolean flag = GenerateImage(img, path, fileName);
 		String result = "";
-		String faceToken = faceUtil.getFaceTokenAR(img,userName);
+		String faceToken = faceUtil.getFaceTokenAR(img,userId);
 		if (faceToken == null) {
 			return null;
 		}
@@ -96,8 +96,8 @@ public class FaceController {
 		
 		String image = info.split(",")[0];
 		String userId = info.split(",")[1];
-		List<String> tokens = userMapper.getToken(userId);
-		if (faceUtil.isEmp(tokens, image)) {
+		String token = userMapper.getToken(userId);
+		if (faceUtil.isEmp(token, image)) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String checkTime = format.format(new Date());
 			//拼接数据为图表做准备
